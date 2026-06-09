@@ -1,0 +1,1021 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Nuestra Boda · Romeo & [Nombre] · 2025</title>
+
+  <!-- Open Graph / WhatsApp preview -->
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Romeo & [Nombre] — Nos Casamos 💍" />
+  <meta property="og:description" content="Con alegría les invitamos a celebrar el día más especial de nuestras vidas. Acompáñennos en nuestra boda." />
+  <meta property="og:image" content="https://images.unsplash.com/photo-1522673607200-164d1b6ce486?w=1200&q=80" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta name="twitter:card" content="summary_large_image" />
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400;1,600&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Lato:wght@300;400&display=swap" rel="stylesheet" />
+
+  <style>
+    /* ── TOKENS ─────────────────────────────────────── */
+    :root {
+      --navy:      #1B2A4A;
+      --navy-deep: #0D1929;
+      --navy-mid:  #243557;
+      --white:     #FAFAFA;
+      --silver:    #B8BCC8;
+      --silver-lt: #D8DCE6;
+      --gold:      #C9A96E;
+      --gold-lt:   #E0C99A;
+      --gold-dk:   #A8843A;
+      --cream:     #F5F0E8;
+
+      --ff-display: 'Playfair Display', Georgia, serif;
+      --ff-sub:     'Cormorant Garamond', Georgia, serif;
+      --ff-body:    'Lato', system-ui, sans-serif;
+    }
+
+    /* ── RESET ──────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--navy-deep);
+      color: var(--white);
+      font-family: var(--ff-body);
+      font-weight: 300;
+      line-height: 1.7;
+      overflow-x: hidden;
+    }
+    img { display: block; max-width: 100%; }
+    a { color: inherit; text-decoration: none; }
+
+    /* ── UTILITIES ──────────────────────────────────── */
+    .gold-line {
+      display: block;
+      width: 60px;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--gold), transparent);
+      margin: 0 auto;
+    }
+    .section-label {
+      font-family: var(--ff-body);
+      font-size: 0.68rem;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 0.75rem;
+    }
+    .fade-in {
+      opacity: 0;
+      transform: translateY(28px);
+      transition: opacity 0.85s ease, transform 0.85s ease;
+    }
+    .fade-in.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ── HERO ───────────────────────────────────────── */
+    #hero {
+      position: relative;
+      min-height: 100svh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-end;
+      text-align: center;
+      overflow: hidden;
+      padding-bottom: 3rem;
+    }
+    #hero-bg {
+      position: absolute;
+      inset: 0;
+      background-image: url('https://images.unsplash.com/photo-1583939003579-730e3918a45a?w=1200&q=80');
+      background-size: cover;
+      background-position: center top;
+      transform: scale(1.04);
+      transition: transform 8s ease;
+    }
+    #hero-bg.loaded { transform: scale(1); }
+    #hero-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        to bottom,
+        rgba(13,25,41,0.25) 0%,
+        rgba(13,25,41,0.55) 55%,
+        rgba(13,25,41,0.92) 100%
+      );
+    }
+    #hero-content {
+      position: relative;
+      z-index: 2;
+      padding: 0 1.5rem;
+    }
+
+    /* Monogram SVG */
+    #monogram {
+      width: 80px;
+      height: 80px;
+      margin: 0 auto 1.8rem;
+    }
+    #monogram circle {
+      fill: none;
+      stroke: var(--gold);
+      stroke-width: 1;
+      stroke-dasharray: 251;
+      stroke-dashoffset: 251;
+      animation: drawCircle 1.8s ease forwards 0.3s;
+    }
+    #monogram text {
+      fill: var(--gold);
+      font-family: var(--ff-display);
+      font-size: 22px;
+      font-style: italic;
+      dominant-baseline: central;
+      text-anchor: middle;
+    }
+    @keyframes drawCircle {
+      to { stroke-dashoffset: 0; }
+    }
+
+    .hero-eyebrow {
+      font-family: var(--ff-body);
+      font-size: 0.65rem;
+      letter-spacing: 0.35em;
+      text-transform: uppercase;
+      color: var(--gold-lt);
+      margin-bottom: 0.6rem;
+      opacity: 0;
+      animation: fadeUp 1s ease forwards 0.9s;
+    }
+    .hero-names {
+      font-family: var(--ff-display);
+      font-size: clamp(2.4rem, 8vw, 4.2rem);
+      font-weight: 400;
+      line-height: 1.1;
+      letter-spacing: 0.01em;
+      opacity: 0;
+      animation: fadeUp 1s ease forwards 1.2s;
+    }
+    .hero-names em { font-style: italic; color: var(--gold-lt); }
+    .hero-ampersand {
+      display: block;
+      font-family: var(--ff-sub);
+      font-size: clamp(1rem, 3vw, 1.5rem);
+      font-style: italic;
+      color: var(--silver);
+      margin: 0.1rem 0;
+    }
+    .hero-verse {
+      font-family: var(--ff-sub);
+      font-style: italic;
+      font-size: clamp(0.9rem, 2.5vw, 1.05rem);
+      color: var(--silver-lt);
+      margin-top: 1.2rem;
+      max-width: 380px;
+      opacity: 0;
+      animation: fadeUp 1s ease forwards 1.5s;
+    }
+    .hero-date {
+      margin-top: 1.5rem;
+      font-family: var(--ff-body);
+      font-size: 0.72rem;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      color: var(--gold);
+      opacity: 0;
+      animation: fadeUp 1s ease forwards 1.8s;
+    }
+    .hero-btn {
+      display: inline-block;
+      margin-top: 2rem;
+      padding: 0.85rem 2.4rem;
+      border: 1px solid var(--gold);
+      color: var(--gold-lt);
+      font-family: var(--ff-body);
+      font-size: 0.72rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      border-radius: 0;
+      background: transparent;
+      cursor: pointer;
+      transition: background 0.3s, color 0.3s;
+      opacity: 0;
+      animation: fadeUp 1s ease forwards 2.1s;
+    }
+    .hero-btn:hover { background: var(--gold); color: var(--navy-deep); }
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(18px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Scroll arrow */
+    .scroll-arrow {
+      position: absolute;
+      bottom: 1.5rem;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 2;
+      opacity: 0;
+      animation: fadeUp 1s ease forwards 2.5s, bounce 2.5s ease-in-out 3s infinite;
+      color: var(--gold);
+      font-size: 1.2rem;
+    }
+    @keyframes bounce {
+      0%, 100% { transform: translateX(-50%) translateY(0); }
+      50%       { transform: translateX(-50%) translateY(6px); }
+    }
+
+    /* ── SECTIONS COMMON ────────────────────────────── */
+    section {
+      padding: 5rem 1.5rem;
+      max-width: 680px;
+      margin: 0 auto;
+      text-align: center;
+    }
+    section.wide { max-width: 100%; padding-left: 0; padding-right: 0; }
+
+    h2 {
+      font-family: var(--ff-display);
+      font-size: clamp(1.8rem, 5vw, 2.6rem);
+      font-weight: 400;
+      letter-spacing: 0.02em;
+      margin: 0.5rem 0 1.5rem;
+      color: var(--white);
+    }
+    h2 em { color: var(--gold-lt); font-style: italic; }
+
+    .body-text {
+      font-family: var(--ff-sub);
+      font-size: clamp(1rem, 2.5vw, 1.1rem);
+      color: var(--silver-lt);
+      line-height: 1.85;
+    }
+
+    /* ── DIVIDER ────────────────────────────────────── */
+    .divider {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      max-width: 320px;
+      margin: 0 auto 3.5rem;
+    }
+    .divider::before, .divider::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--gold-dk));
+    }
+    .divider::after { background: linear-gradient(90deg, var(--gold-dk), transparent); }
+    .divider-icon { color: var(--gold); font-size: 1rem; }
+
+    /* ── COUNTDOWN ──────────────────────────────────── */
+    #countdown-section {
+      background: linear-gradient(135deg, var(--navy) 0%, var(--navy-mid) 100%);
+      max-width: 100%;
+      padding: 4rem 1.5rem;
+    }
+    .countdown-inner { max-width: 680px; margin: 0 auto; text-align: center; }
+    .countdown-grid {
+      display: flex;
+      justify-content: center;
+      gap: clamp(0.8rem, 3vw, 2.5rem);
+      margin-top: 2.5rem;
+      flex-wrap: wrap;
+    }
+    .countdown-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-width: 70px;
+    }
+    .countdown-num {
+      font-family: var(--ff-display);
+      font-size: clamp(2.6rem, 8vw, 4rem);
+      font-weight: 600;
+      color: var(--gold);
+      line-height: 1;
+      letter-spacing: -0.02em;
+    }
+    .countdown-label {
+      font-family: var(--ff-body);
+      font-size: 0.62rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--silver);
+      margin-top: 0.4rem;
+    }
+    .countdown-sep {
+      font-family: var(--ff-display);
+      font-size: clamp(2rem, 5vw, 3rem);
+      color: var(--gold-dk);
+      line-height: 1;
+      align-self: center;
+      margin-bottom: 1.2rem;
+    }
+
+    /* ── STORY ──────────────────────────────────────── */
+    #story { background: var(--navy-deep); }
+
+    /* ── EVENT INFO ─────────────────────────────────── */
+    #event-info {
+      background: linear-gradient(160deg, var(--navy-mid) 0%, var(--navy) 100%);
+      max-width: 100%;
+      padding: 5rem 1.5rem;
+    }
+    .event-inner { max-width: 680px; margin: 0 auto; text-align: center; }
+    .event-cards {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.2rem;
+      margin-top: 2.5rem;
+    }
+    @media (max-width: 420px) { .event-cards { grid-template-columns: 1fr; } }
+    .event-card {
+      border: 1px solid rgba(201,169,110,0.25);
+      padding: 1.8rem 1.2rem;
+      background: rgba(13,25,41,0.5);
+      text-align: center;
+    }
+    .event-card-icon { font-size: 1.5rem; margin-bottom: 0.8rem; }
+    .event-card-title {
+      font-family: var(--ff-body);
+      font-size: 0.62rem;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 0.5rem;
+    }
+    .event-card-value {
+      font-family: var(--ff-display);
+      font-size: 1.15rem;
+      font-weight: 400;
+      color: var(--white);
+      line-height: 1.4;
+    }
+    .event-card.full { grid-column: 1 / -1; }
+
+    .venue-block {
+      margin-top: 2rem;
+      border-top: 1px solid rgba(201,169,110,0.2);
+      padding-top: 2rem;
+    }
+    .venue-name {
+      font-family: var(--ff-display);
+      font-size: clamp(1.3rem, 4vw, 1.7rem);
+      font-style: italic;
+      color: var(--gold-lt);
+      margin-bottom: 0.4rem;
+    }
+    .venue-address {
+      font-family: var(--ff-sub);
+      font-size: 1rem;
+      color: var(--silver-lt);
+      font-style: italic;
+    }
+
+    /* ── MAP ────────────────────────────────────────── */
+    #map-section {
+      background: var(--navy-deep);
+      max-width: 100%;
+      padding: 5rem 1.5rem;
+    }
+    .map-inner { max-width: 680px; margin: 0 auto; text-align: center; }
+    .map-embed {
+      margin-top: 2rem;
+      border: 1px solid rgba(201,169,110,0.2);
+      overflow: hidden;
+      aspect-ratio: 16/9;
+      position: relative;
+      background: var(--navy);
+    }
+    .map-embed iframe { width: 100%; height: 100%; border: 0; }
+    .map-placeholder {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(135deg, var(--navy) 0%, var(--navy-mid) 100%);
+      color: var(--silver);
+      gap: 0.5rem;
+    }
+    .map-placeholder span { font-size: 2rem; }
+    .map-placeholder p { font-size: 0.8rem; letter-spacing: 0.1em; }
+    .btn-primary {
+      display: inline-block;
+      margin-top: 1.5rem;
+      padding: 1rem 2.6rem;
+      background: var(--gold);
+      color: var(--navy-deep);
+      font-family: var(--ff-body);
+      font-size: 0.75rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      font-weight: 400;
+      cursor: pointer;
+      border: none;
+      transition: background 0.3s, transform 0.2s;
+    }
+    .btn-primary:hover { background: var(--gold-lt); transform: translateY(-1px); }
+
+    /* ── RSVP ───────────────────────────────────────── */
+    #rsvp {
+      background: linear-gradient(160deg, var(--navy-mid) 0%, var(--navy) 100%);
+      max-width: 100%;
+      padding: 5rem 1.5rem;
+    }
+    .rsvp-inner { max-width: 520px; margin: 0 auto; text-align: center; }
+    .rsvp-message {
+      font-family: var(--ff-sub);
+      font-style: italic;
+      font-size: 1.05rem;
+      color: var(--silver-lt);
+      margin-bottom: 2rem;
+      line-height: 1.8;
+    }
+    .btn-rsvp {
+      display: inline-block;
+      padding: 1.1rem 3rem;
+      background: transparent;
+      border: 1px solid var(--gold);
+      color: var(--gold-lt);
+      font-family: var(--ff-body);
+      font-size: 0.78rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: all 0.3s;
+      position: relative;
+      overflow: hidden;
+    }
+    .btn-rsvp::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: var(--gold);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.35s ease;
+      z-index: -1;
+    }
+    .btn-rsvp:hover::before { transform: scaleX(1); }
+    .btn-rsvp:hover { color: var(--navy-deep); border-color: var(--gold); }
+
+    /* ── DRESS CODE ─────────────────────────────────── */
+    #dresscode {
+      background: var(--navy-deep);
+      max-width: 100%;
+      padding: 5rem 1.5rem;
+    }
+    .dresscode-inner { max-width: 680px; margin: 0 auto; text-align: center; }
+    .dresscode-badge {
+      display: inline-block;
+      border: 1px solid var(--gold);
+      padding: 0.4rem 1.8rem;
+      font-family: var(--ff-body);
+      font-size: 0.62rem;
+      letter-spacing: 0.35em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin: 1.2rem 0 2.5rem;
+    }
+    .dresscode-cards {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.2rem;
+    }
+    @media (max-width: 380px) { .dresscode-cards { grid-template-columns: 1fr; } }
+    .dresscode-card {
+      background: rgba(27,42,74,0.5);
+      border: 1px solid rgba(201,169,110,0.18);
+      padding: 2rem 1.5rem;
+    }
+    .dresscode-icon { font-size: 2.2rem; margin-bottom: 1rem; }
+    .dresscode-card-title {
+      font-family: var(--ff-display);
+      font-size: 1.1rem;
+      font-style: italic;
+      color: var(--gold-lt);
+      margin-bottom: 0.8rem;
+    }
+    .dresscode-card-text {
+      font-family: var(--ff-sub);
+      font-size: 0.92rem;
+      color: var(--silver-lt);
+      line-height: 1.7;
+      font-style: italic;
+    }
+    .dresscode-note {
+      margin-top: 2rem;
+      font-family: var(--ff-sub);
+      font-style: italic;
+      font-size: 0.9rem;
+      color: var(--silver);
+    }
+
+    /* ── GALLERY ────────────────────────────────────── */
+    #gallery {
+      background: linear-gradient(160deg, var(--navy-mid) 0%, var(--navy) 100%);
+      max-width: 100%;
+      padding: 5rem 0;
+    }
+    .gallery-header { text-align: center; padding: 0 1.5rem; margin-bottom: 2.5rem; }
+    .gallery-track-wrap {
+      overflow: hidden;
+      position: relative;
+    }
+    .gallery-track {
+      display: flex;
+      gap: 1rem;
+      transition: transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      padding: 0 1.5rem;
+    }
+    .gallery-slide {
+      flex: 0 0 calc(85vw);
+      max-width: 520px;
+      aspect-ratio: 3/4;
+      overflow: hidden;
+      border: 1px solid rgba(201,169,110,0.2);
+      position: relative;
+    }
+    @media (min-width: 600px) { .gallery-slide { flex: 0 0 340px; } }
+    .gallery-slide img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.6s ease;
+    }
+    .gallery-slide:hover img { transform: scale(1.04); }
+    .gallery-controls {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 1.5rem;
+      margin-top: 2rem;
+      padding: 0 1.5rem;
+    }
+    .gallery-btn {
+      width: 44px;
+      height: 44px;
+      border: 1px solid var(--gold);
+      background: transparent;
+      color: var(--gold);
+      font-size: 1.1rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.3s, color 0.3s;
+    }
+    .gallery-btn:hover { background: var(--gold); color: var(--navy-deep); }
+    .gallery-dots {
+      display: flex;
+      gap: 0.5rem;
+    }
+    .gallery-dot {
+      width: 6px;
+      height: 6px;
+      background: var(--navy-mid);
+      border: 1px solid var(--gold-dk);
+      border-radius: 0;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+    .gallery-dot.active { background: var(--gold); }
+
+    /* ── FINAL MESSAGE ──────────────────────────────── */
+    #final {
+      background: var(--navy-deep);
+      max-width: 100%;
+      padding: 6rem 1.5rem;
+      text-align: center;
+    }
+    .final-inner { max-width: 560px; margin: 0 auto; }
+    .final-quote {
+      font-family: var(--ff-display);
+      font-size: clamp(1.6rem, 5vw, 2.4rem);
+      font-style: italic;
+      font-weight: 400;
+      color: var(--gold-lt);
+      line-height: 1.35;
+      margin: 1.5rem 0;
+    }
+    .final-text {
+      font-family: var(--ff-sub);
+      font-style: italic;
+      font-size: 1.05rem;
+      color: var(--silver-lt);
+      line-height: 1.85;
+      margin-top: 1.5rem;
+    }
+    .final-names {
+      font-family: var(--ff-display);
+      font-size: 1.5rem;
+      color: var(--gold);
+      margin-top: 2.5rem;
+      letter-spacing: 0.05em;
+    }
+    .final-names small {
+      display: block;
+      font-family: var(--ff-body);
+      font-size: 0.65rem;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--silver);
+      margin-bottom: 0.3rem;
+      font-style: normal;
+    }
+
+    /* ── FOOTER ─────────────────────────────────────── */
+    footer {
+      background: rgba(13,25,41,0.8);
+      text-align: center;
+      padding: 1.5rem;
+      border-top: 1px solid rgba(201,169,110,0.15);
+    }
+    footer p {
+      font-size: 0.65rem;
+      letter-spacing: 0.2em;
+      color: var(--silver);
+      text-transform: uppercase;
+    }
+
+    /* ── REDUCED MOTION ─────────────────────────────── */
+    @media (prefers-reduced-motion: reduce) {
+      .fade-in, .hero-eyebrow, .hero-names, .hero-verse, .hero-date, .hero-btn,
+      .scroll-arrow, #monogram circle { animation-duration: 0.01ms !important; }
+      .gallery-track { transition: none; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ══ HERO ═══════════════════════════════════════════ -->
+<section id="hero" style="padding:0;">
+  <div id="hero-bg"></div>
+  <div id="hero-overlay"></div>
+
+  <div id="hero-content">
+    <!-- Monogram -->
+    <svg id="monogram" viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <circle cx="40" cy="40" r="38" />
+      <text x="40" y="40">R & A</text>
+    </svg>
+
+    <p class="hero-eyebrow">Con todo nuestro amor, los invitamos a</p>
+    <h1 class="hero-names">
+      <em>Romeo</em>
+      <span class="hero-ampersand">&amp;</span>
+      <em>Ana</em>
+    </h1>
+    <p class="hero-verse">
+      «El amor es paciente, es bondadoso… todo lo soporta, todo lo cree,<br>
+      todo lo espera, todo lo aguanta.» — 1 Corintios 13:4-7
+    </p>
+    <p class="hero-date">Sábado · 15 de Noviembre · 2025</p>
+    <a href="#countdown" class="hero-btn">Explorar nuestra invitación</a>
+  </div>
+
+  <div class="scroll-arrow" aria-hidden="true">&#8964;</div>
+</section>
+
+
+<!-- ══ COUNTDOWN ══════════════════════════════════════ -->
+<div id="countdown-section">
+  <div class="countdown-inner fade-in">
+    <p class="section-label">Faltan…</p>
+    <span class="gold-line"></span>
+    <h2 id="countdown" style="margin-top:0.8rem;">Contando cada <em>momento</em></h2>
+    <div class="countdown-grid">
+      <div class="countdown-item">
+        <span class="countdown-num" id="cd-days">--</span>
+        <span class="countdown-label">Días</span>
+      </div>
+      <span class="countdown-sep">·</span>
+      <div class="countdown-item">
+        <span class="countdown-num" id="cd-hours">--</span>
+        <span class="countdown-label">Horas</span>
+      </div>
+      <span class="countdown-sep">·</span>
+      <div class="countdown-item">
+        <span class="countdown-num" id="cd-mins">--</span>
+        <span class="countdown-label">Minutos</span>
+      </div>
+      <span class="countdown-sep">·</span>
+      <div class="countdown-item">
+        <span class="countdown-num" id="cd-secs">--</span>
+        <span class="countdown-label">Segundos</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ══ NUESTRA HISTORIA ════════════════════════════════ -->
+<section id="story">
+  <div class="fade-in">
+    <p class="section-label">Nuestra historia</p>
+    <span class="gold-line"></span>
+    <h2 style="margin-top:0.8rem;">Un camino que comenzó<br><em>sin esperarlo</em></h2>
+    <div class="divider"><span class="divider-icon">♡</span></div>
+    <p class="body-text">
+      Todo comenzó de la manera más sencilla: una conversación que no queríamos terminar,
+      una risa que se quedó grabada, y la certeza de que algo especial estaba naciendo.
+      Con el tiempo, lo que empezó como amistad se convirtió en el amor más bonito
+      que hemos conocido. Hoy, después de compartir sueños, aventuras y miles de momentos
+      que solo nosotros recordamos, estamos listos para dar el paso más importante de nuestras vidas.
+    </p>
+    <p class="body-text" style="margin-top:1.2rem;">
+      Queremos que estén presentes en el comienzo de nuestra historia más grande.
+    </p>
+  </div>
+</section>
+
+
+<!-- ══ INFORMACIÓN DEL EVENTO ═════════════════════════ -->
+<div id="event-info">
+  <div class="event-inner fade-in">
+    <p class="section-label">El gran día</p>
+    <span class="gold-line"></span>
+    <h2 style="margin-top:0.8rem;">Información de la <em>ceremonia</em></h2>
+
+    <div class="event-cards">
+      <div class="event-card">
+        <div class="event-card-icon">📅</div>
+        <div class="event-card-title">Fecha</div>
+        <div class="event-card-value">15 de Noviembre<br>2025</div>
+      </div>
+      <div class="event-card">
+        <div class="event-card-icon">💍</div>
+        <div class="event-card-title">Ceremonia</div>
+        <div class="event-card-value">3:00 PM</div>
+      </div>
+      <div class="event-card">
+        <div class="event-card-icon">🥂</div>
+        <div class="event-card-title">Recepción</div>
+        <div class="event-card-value">5:30 PM</div>
+      </div>
+      <div class="event-card">
+        <div class="event-card-icon">🕯</div>
+        <div class="event-card-title">Dresscode</div>
+        <div class="event-card-value">Formal</div>
+      </div>
+    </div>
+
+    <div class="venue-block">
+      <p class="section-label">Lugar del evento</p>
+      <p class="venue-name">Jardín de Eventos Los Almendros</p>
+      <p class="venue-address">5ª Avenida Norte 12-34, Antigua Guatemala, Guatemala</p>
+    </div>
+  </div>
+</div>
+
+
+<!-- ══ UBICACIÓN ══════════════════════════════════════ -->
+<div id="map-section">
+  <div class="map-inner fade-in">
+    <p class="section-label">Cómo llegar</p>
+    <span class="gold-line"></span>
+    <h2 style="margin-top:0.8rem;">Nuestra <em>ubicación</em></h2>
+
+    <div class="map-embed">
+      <!--
+        INSTRUCCIÓN: Reemplaza el iframe a continuación con el tuyo desde Google Maps.
+        Ve a maps.google.com → busca el lugar → Compartir → Incorporar un mapa → copia el iframe.
+        Elimina el div .map-placeholder cuando tengas el iframe real.
+      -->
+      <div class="map-placeholder">
+        <span>📍</span>
+        <p>Insertar iframe de Google Maps aquí</p>
+        <p style="font-size:0.7rem;opacity:0.6;">Ver instrucciones en el código</p>
+      </div>
+      <!-- EJEMPLO (descomenta y personaliza):
+      <iframe
+        src="https://www.google.com/maps/embed?pb=TU_CODIGO_EMBED"
+        allowfullscreen
+        loading="lazy"
+        referrerpolicy="no-referrer-when-downgrade">
+      </iframe>
+      -->
+    </div>
+
+    <a
+      href="https://maps.google.com/?q=Jardin+Los+Almendros+Antigua+Guatemala"
+      target="_blank"
+      rel="noopener"
+      class="btn-primary"
+    >
+      📍 &nbsp;Cómo llegar
+    </a>
+  </div>
+</div>
+
+
+<!-- ══ CONFIRMACIÓN DE ASISTENCIA ════════════════════ -->
+<div id="rsvp" style="text-align:center;">
+  <div class="rsvp-inner fade-in">
+    <p class="section-label">¿Nos acompañas?</p>
+    <span class="gold-line"></span>
+    <h2 style="margin-top:0.8rem;">Confirma tu <em>asistencia</em></h2>
+    <p class="rsvp-message">
+      Nos encantaría tenerte con nosotros en este día tan especial.<br>
+      Por favor confirma tu asistencia a más tardar el <strong style="color:var(--gold-lt);">1 de noviembre de 2025</strong>.
+    </p>
+    <a
+      href="https://forms.google.com/TU_FORMULARIO"
+      target="_blank"
+      rel="noopener"
+      class="btn-rsvp"
+    >
+      Confirmar asistencia
+    </a>
+  </div>
+</div>
+
+
+<!-- ══ DRESS CODE ═════════════════════════════════════ -->
+<div id="dresscode">
+  <div class="dresscode-inner fade-in">
+    <p class="section-label">Vestimenta</p>
+    <span class="gold-line"></span>
+    <h2 style="margin-top:0.8rem;">Código de <em>vestimenta</em></h2>
+    <div class="dresscode-badge">Etiqueta Formal</div>
+
+    <div class="dresscode-cards">
+      <div class="dresscode-card">
+        <div class="dresscode-icon">🤵</div>
+        <div class="dresscode-card-title">Caballeros</div>
+        <p class="dresscode-card-text">
+          Traje formal o combinación elegante con camisa de vestir y zapatos formales.
+          Preferiblemente en tonos oscuros o neutros.
+        </p>
+      </div>
+      <div class="dresscode-card">
+        <div class="dresscode-icon">👗</div>
+        <div class="dresscode-card-title">Damas</div>
+        <p class="dresscode-card-text">
+          Vestido formal o de cóctel elegante, acompañado de calzado acorde a la ocasión.
+          Evitar el color blanco.
+        </p>
+      </div>
+    </div>
+
+    <p class="dresscode-note">
+      ✨ Gracias por contribuir con su elegancia a la belleza de este día.
+    </p>
+  </div>
+</div>
+
+
+<!-- ══ GALERÍA ════════════════════════════════════════ -->
+<div id="gallery">
+  <div class="gallery-header fade-in">
+    <p class="section-label">Nuestra historia en imágenes</p>
+    <span class="gold-line"></span>
+    <h2 style="margin-top:0.8rem;">Momentos que <em>atesoramos</em></h2>
+  </div>
+
+  <div class="gallery-track-wrap">
+    <div class="gallery-track" id="gallery-track">
+      <div class="gallery-slide">
+        <img src="https://images.unsplash.com/photo-1537633552985-df8429e8048b?w=600&q=75" alt="Foto de la pareja 1" loading="lazy" />
+      </div>
+      <div class="gallery-slide">
+        <img src="https://images.unsplash.com/photo-1522673607200-164d1b6ce486?w=600&q=75" alt="Foto de la pareja 2" loading="lazy" />
+      </div>
+      <div class="gallery-slide">
+        <img src="https://images.unsplash.com/photo-1460978812857-470ed1c77af0?w=600&q=75" alt="Foto de la pareja 3" loading="lazy" />
+      </div>
+      <div class="gallery-slide">
+        <img src="https://images.unsplash.com/photo-1519225421980-715cb0215aed?w=600&q=75" alt="Foto de la pareja 4" loading="lazy" />
+      </div>
+      <div class="gallery-slide">
+        <img src="https://images.unsplash.com/photo-1583939003579-730e3918a45a?w=600&q=75" alt="Foto de la pareja 5" loading="lazy" />
+      </div>
+    </div>
+  </div>
+
+  <div class="gallery-controls">
+    <button class="gallery-btn" id="gallery-prev" aria-label="Anterior">&#8592;</button>
+    <div class="gallery-dots" id="gallery-dots"></div>
+    <button class="gallery-btn" id="gallery-next" aria-label="Siguiente">&#8594;</button>
+  </div>
+</div>
+
+
+<!-- ══ MENSAJE FINAL ══════════════════════════════════ -->
+<div id="final">
+  <div class="final-inner fade-in">
+    <p class="section-label">Con amor</p>
+    <span class="gold-line"></span>
+    <p class="final-quote">«Gracias por ser parte<br>de nuestra historia»</p>
+
+    <p class="final-text">
+      Cada uno de ustedes ocupa un lugar especial en nuestros corazones.
+      Su presencia en este día llenará de alegría y de significado el momento
+      más importante de nuestras vidas. Los esperamos con los brazos abiertos,
+      listos para compartir esta celebración llena de amor, emoción y gratitud.
+    </p>
+
+    <div style="margin:2.5rem auto 0; max-width:200px;">
+      <div class="gold-line" style="width:100%;"></div>
+    </div>
+
+    <p class="final-names">
+      <small>Con cariño</small>
+      Romeo &amp; Ana
+    </p>
+  </div>
+</div>
+
+
+<!-- ══ FOOTER ═════════════════════════════════════════ -->
+<footer>
+  <p>Romeo &amp; Ana · 15.11.2025 · Para siempre</p>
+</footer>
+
+
+<script>
+  // ── Hero bg load animation
+  const heroBg = document.getElementById('hero-bg');
+  const img = new Image();
+  img.onload = () => heroBg.classList.add('loaded');
+  img.src = heroBg.style.backgroundImage.slice(5, -2);
+  heroBg.classList.add('loaded');
+
+  // ── Countdown
+  const weddingDate = new Date('2025-11-15T15:00:00');
+  function updateCountdown() {
+    const now = new Date();
+    const diff = weddingDate - now;
+    if (diff <= 0) {
+      document.getElementById('cd-days').textContent = '0';
+      document.getElementById('cd-hours').textContent = '00';
+      document.getElementById('cd-mins').textContent = '00';
+      document.getElementById('cd-secs').textContent = '00';
+      return;
+    }
+    const days  = Math.floor(diff / 86400000);
+    const hours = Math.floor((diff % 86400000) / 3600000);
+    const mins  = Math.floor((diff % 3600000) / 60000);
+    const secs  = Math.floor((diff % 60000) / 1000);
+    document.getElementById('cd-days').textContent  = days;
+    document.getElementById('cd-hours').textContent = String(hours).padStart(2,'0');
+    document.getElementById('cd-mins').textContent  = String(mins).padStart(2,'0');
+    document.getElementById('cd-secs').textContent  = String(secs).padStart(2,'0');
+  }
+  updateCountdown();
+  setInterval(updateCountdown, 1000);
+
+  // ── Fade-in on scroll
+  const fadeEls = document.querySelectorAll('.fade-in');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); } });
+  }, { threshold: 0.12 });
+  fadeEls.forEach(el => observer.observe(el));
+
+  // ── Gallery carousel
+  const track  = document.getElementById('gallery-track');
+  const slides = track.querySelectorAll('.gallery-slide');
+  const dotsEl = document.getElementById('gallery-dots');
+  let current  = 0;
+
+  // Build dots
+  slides.forEach((_, i) => {
+    const dot = document.createElement('button');
+    dot.className = 'gallery-dot' + (i === 0 ? ' active' : '');
+    dot.setAttribute('aria-label', `Foto ${i+1}`);
+    dot.addEventListener('click', () => goTo(i));
+    dotsEl.appendChild(dot);
+  });
+
+  function getSlideWidth() {
+    return slides[0].getBoundingClientRect().width + 16; // gap = 1rem = 16px
+  }
+
+  function goTo(idx) {
+    current = (idx + slides.length) % slides.length;
+    const offset = current * getSlideWidth();
+    track.style.transform = `translateX(-${offset}px)`;
+    dotsEl.querySelectorAll('.gallery-dot').forEach((d, i) => d.classList.toggle('active', i === current));
+  }
+
+  document.getElementById('gallery-prev').addEventListener('click', () => goTo(current - 1));
+  document.getElementById('gallery-next').addEventListener('click', () => goTo(current + 1));
+
+  // Touch/swipe
+  let touchStartX = 0;
+  track.addEventListener('touchstart', e => { touchStartX = e.touches[0].clientX; }, { passive: true });
+  track.addEventListener('touchend', e => {
+    const dx = e.changedTouches[0].clientX - touchStartX;
+    if (Math.abs(dx) > 40) goTo(dx < 0 ? current + 1 : current - 1);
+  });
+</script>
+</body>
+</html>
