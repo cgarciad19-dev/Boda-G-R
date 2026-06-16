@@ -13,6 +13,9 @@
   <meta property="og:image:height" content="630" />
   <meta name="twitter:card" content="summary_large_image" />
 
+  <!-- Favicon propio: corazón marino + dorado. Para cambiarlo, edita el SVG de abajo. -->
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%2064%2064'%3E%3Crect%20width='64'%20height='64'%20rx='14'%20fill='%231A2B4A'/%3E%3Cpath%20d='M32,47C13,34,18,17,32,25C46,17,51,34,32,47Z'%20fill='%23D4B05A'/%3E%3C/svg%3E" />
+
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;1,400;1,500&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet" />
@@ -155,7 +158,7 @@
       width: 90px;
       height: 90px;
       border-radius: 50%;
-      background: radial-gradient(circle at 35% 35%, #D4B05A 0%, #B8973A 40%, #8B6E20 80%, #6B5018 100%);
+      background: radial-gradient(circle at 35% 35%, #2E4270 0%, #1A2B4A 55%, #11203B 100%);
       display: flex;
       align-items: center;
       justify-content: center;
@@ -211,13 +214,36 @@
     .reveal.in { opacity: 1; transform: none; }
 
     /* ══ HERO ════════════════════════════════════════ */
+    /* ══ HERO / PORTADA (compuerta) ══════════════════ */
     #hero {
-      position: relative;
+      position: fixed;
+      inset: 0;
+      z-index: 40;
       min-height: 100svh;
       display: grid;
       grid-template-rows: 1fr auto;
       overflow: hidden;
       background: var(--navy);
+      transition: opacity 0.8s ease, visibility 0.8s ease;
+    }
+    #hero.gone {
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+    }
+    /* Marco grabado (estilo v3) sobre la foto */
+    .hero-frame {
+      position: absolute;
+      inset: clamp(14px, 4.5vw, 30px);
+      z-index: 2;
+      border: 1px solid rgba(255,255,255,0.45);
+      pointer-events: none;
+    }
+    .hero-frame::before {
+      content: '';
+      position: absolute;
+      inset: 6px;
+      border: 1px solid rgba(238,217,144,0.45);
     }
     #hero-photo {
       position: absolute;
@@ -327,11 +353,13 @@
       margin-top: 1.4rem;
       background: var(--gold);
       color: var(--navy);
+      font-family: var(--ff-sans);
       font-size: 0.7rem;
       font-weight: 500;
       letter-spacing: 0.22em;
       text-transform: uppercase;
       padding: 0.9rem 2.4rem;
+      border: 0;
       cursor: pointer;
       transition: background 0.25s;
       animation: fadeUp 0.9s ease forwards 1.6s;
@@ -361,6 +389,36 @@
     @keyframes bob {
       0%, 100% { transform: translateX(-50%) translateY(0); }
       50%       { transform: translateX(-50%) translateY(7px); }
+    }
+
+    /* ══ FRANJA DE FOTO ══════════════════════════════ */
+    .photo-band {
+      position: relative;
+      min-height: 60vh;
+      display: grid;
+      place-items: center;
+      text-align: center;
+      overflow: hidden;
+      background: var(--navy);
+    }
+    .photo-band-img {
+      position: absolute; inset: 0;
+      background: url('https://images.unsplash.com/photo-1519225421980-715cb0215aed?w=1400&q=80') center 30%/cover;
+    }
+    .photo-band-img::after {
+      content: ''; position: absolute; inset: 0;
+      background: rgba(26,43,74,0.6);
+    }
+    .photo-band-txt { position: relative; z-index: 2; color: #fff; padding: 3.5rem 2rem; }
+    .photo-band-txt p {
+      font-family: var(--ff-serif); font-style: italic; font-weight: 400;
+      font-size: clamp(1.5rem, 5vw, 2.3rem); line-height: 1.4;
+      max-width: 480px; margin: 0 auto;
+    }
+    .photo-band-txt .src {
+      display: block; font-family: var(--ff-sans); font-style: normal;
+      font-size: 0.62rem; letter-spacing: 0.24em; text-transform: uppercase;
+      color: var(--gold-pale); margin-top: 1.2rem;
     }
 
     /* ══ SHARED ══════════════════════════════════════ */
@@ -832,9 +890,10 @@
 <!-- ══ MAIN CONTENT ═══════════════════════════════ -->
 <div id="main-content">
 
-  <!-- HERO -->
+  <!-- HERO / PORTADA -->
   <section id="hero">
     <div id="hero-photo"></div>
+    <div class="hero-frame" aria-hidden="true"></div>
     <div id="hero-top">
       <div class="hero-crest"><span class="hero-crest-inner">G&R</span></div>
     </div>
@@ -851,9 +910,16 @@
         <cite>1 Corintios 13 : 4–7</cite>
       </p>
       <span class="hero-date-pill">Sábado · 28 de Noviembre · 2026</span><br>
-      <a href="#sec-countdown" class="hero-cta">Ver nuestra invitación</a>
+      <button type="button" id="hero-cta-btn" class="hero-cta">Ver nuestra invitación</button>
     </div>
-    <div class="scroll-hint" aria-hidden="true"></div>
+  </section>
+
+  <!-- FRANJA DE FOTO -->
+  <section class="photo-band">
+    <div class="photo-band-img"></div>
+    <div class="photo-band-txt">
+      <p>Dos historias que se vuelven una.<span class="src">28 · 11 · 2026 — Antigua Guatemala</span></p>
+    </div>
   </section>
 
   <!-- COUNTDOWN -->
@@ -1199,13 +1265,22 @@ function openEnvelope() {
   setTimeout(() => {
     envScreen.classList.add('hidden');
     document.getElementById('main-content').classList.add('visible');
-    document.body.style.overflow = '';
+    // El scroll sigue bloqueado: ahora se ve la PORTADA a pantalla completa.
   }, 650);
 }
 
 envWrap.addEventListener('click', openEnvelope);
 envWrap.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') openEnvelope(); });
 document.body.style.overflow = 'hidden';
+
+/* ── PORTADA → INVITACIÓN (segunda compuerta) ── */
+const heroSection = document.getElementById('hero');
+const heroCtaBtn  = document.getElementById('hero-cta-btn');
+heroCtaBtn.addEventListener('click', () => {
+  heroSection.classList.add('gone');     // la portada se desvanece
+  document.body.style.overflow = '';      // se libera el scroll
+  window.scrollTo(0, 0);                  // empezamos arriba (franja de foto)
+});
 
 /* ── COUNTDOWN ── */
 const target = new Date('2026-11-28T16:00:00');
